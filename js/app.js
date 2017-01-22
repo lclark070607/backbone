@@ -2,7 +2,7 @@
 // const HangmanView = require('./views/ingredients'); //create views folder
 
 const GameModel = require('./models/game');
-const GameView = require('./views.game');
+const GameView = require('./views/game');
 
 
 window.addEventListener('load', function() {

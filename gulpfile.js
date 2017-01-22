@@ -33,7 +33,7 @@ gulp.task('css', function() {
 
 gulp.task('js', function() {
     //Copy js file into public/
-    return gulp.src('js/app.js') //app.js is in js folder
+    return gulp.src('js/*.js') //app.js is in js folder
         .pipe(browser.browserify())
         .pipe(gulp.dest('public/'));
 });
