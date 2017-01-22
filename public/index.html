@@ -1,0 +1,59 @@
+<!doctype html> 
+<!--Dont forget to run gulp after you set up basic html structure, this
+saves it to the public directory.  Actually you can run gulp watch to keep
+gulp files updated-->
+
+<html>
+    <head>
+        <title>Mastermind</title>
+    <!--Add css file-->
+    <link rel="stylesheet" href="style.css">
+    <!--add js file-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script type="x-mustache-template" id="game-row">
+    <div id="row">
+        <h3>{{ position0 }}{{ position1 }}{{ position2 }}{{ position3 }}{{ indicator }}</h3>    
+    </div>
+    
+    <script src="app.js"></script>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Mastermind</h1>
+            <h2>A game for Morrighan, Braeden, and Owen.</h2>
+        </header>
+
+        <main>
+
+       <section id="rowDisplay">
+       <ul id="gameRows"></ul>
+       </section>
+       
+       <h2>Make a Guess</h2>
+            <input type="text" id="guess" placeholder="type four colors">
+            <button id="check">Check Guess</button>
+       
+       
+       <ul id="colors">
+           <li>Red = r</li>
+           <li>Orange = o</li>
+           <li>Yellow = y</li>
+           <li>White = w</li>
+           <li>Blue = b</li>
+           <li>Green = g</li>
+           <li>Teal = t</li>
+           <li>Purple = p</li>
+       </ul>
+   
+   </main>
+   
+   <footer>
+       <button id="start">Start New Game</button>
+   </footer>
+
+        
+
+    </body>
+</html>
