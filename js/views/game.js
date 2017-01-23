@@ -8,8 +8,8 @@ module.exports = Backbone.View.extend({
         'click #start': 'newGame',
     },
 
-    addGuess: function (){
-        let stringGuess = document.querySelector('#guess').value;
+    addGuess: function () {
+        let stringGuess = document.querySelector('#guess').value.toLowerCase();
         this.model.checkGuess(stringGuess);
     },
 
@@ -17,30 +17,41 @@ module.exports = Backbone.View.extend({
         this.model.reset();
     },
 
-    render: function (){
+    render: function () {
         //mustache
         //get Grace's data and convert to letters
         //convert play data to letter 
         //convert indicators to 'close' and 'correct'
         //display turn number using her indices 
         //display all guesses and indicators in turn order
-        document.querySelector('#guess').value = '';
-        document.querySelector('#gameRows'.value = '');
+        this.el.querySelector('#guess').value = '';
+        this.el.querySelector('#rowDisplay').innerHTML = '';
 
-        let parent = document.querySelector('#gameRows');
+        let parent = this.el.querySelector('#rowDisplay');
         let template = document.querySelector('#game-row');
-        let child = document.createElement('li');
-
-        child.innerHTML = Mustache.render(template.innerHTML, {
-            turnNumber: sd,
-            position0: sd,
-            position1: sd,
-            position2: sd,
-            position3: sd,
-
-        })
 
 
+        for (let i = 0; i < this.model.get('colorGuesses').length; i++) {
+            let guess = this.model.get('colorGuesses')[i];
+            let indicator = this.model.get('indicators')[i];
+
+            let child = document.createElement('div');
+            child.setAttribute('id', 'row');
+            parent.appendChild(child);
+
+            child.innerHTML = Mustache.render(template.innerHTML, {
+                // turnNumber: model.get('colorGuesses.guess[0]'),
+                position0: guess[0],
+                position1: guess[1],
+                position2: guess[2],
+                position3: guess[3],
+
+            })
+
+        }
     }
 
-})
+    })
+
+//make sure check Guess button only functions when 4 letters are input
+//make sure check Guess button doesn't work when empty input box is returned

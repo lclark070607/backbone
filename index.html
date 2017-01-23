@@ -10,19 +10,23 @@ gulp files updated-->
     <!--Add css file-->
     <link rel="stylesheet" href="style.css">
     <!--add js file-->
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="http://backbonejs.org/backbone.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
     <script src="app.js"></script>
     <script type="x-mustache-template" id="game-row">
 
-        <div id="row">
+        
             <h4>{{ turnNumber }}</h4>
             <div id="buttons">
-                <button {{ position0 }}></button>
-                <button {{ position1 }}></button>
-                <button {{ position2 }}></button>
-                <button {{ position3 }}></button>
+                <button class="color-{{ position0 }}"> {{ position0 }} </button>
+                <button class="color-{{ position1 }}"> {{ position1 }} </button>
+                <button class="color-{{ position2 }}"> {{ position2 }} </button>
+                <button class="color-{{ position3 }}"> {{ position3 }} </button> 
             </div>
-        </div>
+       
         
         <h4>{{ pegs }}</h4>    
         </script>
@@ -50,29 +54,36 @@ gulp files updated-->
         </section>
 
         <section id="colorDisplay">
+            <div id="colors1"></div>
             <div id="colors">
                 <section id='firstRow'>
-                    <button class='red'>R</button>
-                    <button class='orange'>O</button>
-                    <button class='yellow'>Y</button>
-                    <button class='white'>W</button>
+                    <button class='color-r'>R</button>
+                    <button class='color-o'>O</button>
+                    <button class='color-y'>Y</button>
+                    <button class='color-w'>W</button>
                 </section>
 
                 <section id='secondRow'>
-                    <button class='blue'>B</button>
-                    <button class='green'>G</button>
-                    <button class='teal'>T</button>
-                    <button class='purple'>P</button>
+                    <button class='color-b'>B</button>
+                    <button class='color-g'>G</button>
+                    <button class='color-t'>T</button>
+                    <button class='color-p'>P</button>
                 </section>
             </div>
+            <div id="colors2"></div>
         </section>
 
-        <button id="start">Start New Game</button>
+        <div id=startBtn>
+            <div id='placeholder1'></div>
+            <button id="start">Start New Game</button>
+            <div id='placeholder2'></div>
+        </div>
+        
     </main>
 
-   
-        
-    
+
+
+
 
 
 

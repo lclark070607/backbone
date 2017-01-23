@@ -1,6 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// const HangmanModel = require('./models/ingredients'); //create models folder
-// const HangmanView = require('./views/ingredients'); //create views folder
 
 const GameModel = require('./models/game');
 const GameView = require('./views/game');
@@ -12,7 +10,6 @@ window.addEventListener('load', function() {
        el: document.querySelector('main'),
        model: game,
    })
-
 
 });
 
@@ -32,90 +29,92 @@ Backbone.sync = function (method, model) {
         request.open('POST', 'https://limitless-earth-22097.herokuapp.com/');
 
         request.addEventListener('load', function () {
-            const response = JSON.parse(request.responseText);
-            model.set('indicators', response.indicators);
+            let response = JSON.parse(request.responseText);
+            model.set('indicators', response);
             model.trigger('change');
-
-            //reset the turn
             let newTurn = model.get('turn') + 1;
             model.set('turn', newTurn);
         });
 
-        const body = JSON.stringify({
-            play: model.get('numberGuesses.guess[guessNumber]'),
+        console.log(model.get('numberGuesses')[model.get('turn')]);
+        const body = JSON.stringify(
+           model.get('numberGuesses')[model.get('turn')]
 
-        });
+        );
 
+        // let newGame = new XMLHttpRequest();
+        // newGame.open('POST', 'url');
         request.send(body);
     }
 }
-
-// }
-
-
 
 module.exports = Backbone.Model.extend({
     defaults: {
         turn: 0,
         //an array within an object
-        colorGuesses: {
-        },
+        colorGuesses: [],
+        numberGuesses: [],
+        indicators: [],
+    },
 
-        numberGuesses: {
-        },
+    reset: function () {
+        this.set('turn', 0);
+        this.save();
+    },
 
-        reset: function () {
-            this.set('turn', 0);
-            this.save();
-        },
-
-        //POST function, click check guess, We push the current
-        //guess (after splitting string) to the guesses as an array in the guess/
-        //object and then send Grace the current turn's guess only
-        //in an array format.
+    //POST function, click check guess, We push the current
+    //guess (after splitting string) to the guesses as an array in the guess/
+    //object and then send Grace the current turn's guess only
+    //in an array format.
 
 
-        checkGuess: function (input) {
-            let guess = input.split("").toLowerCase;
-            colorGuesses.push(guess);
+    checkGuess: function (input) {
 
-            //setting colors to numbers
-            for (let i = 0; i < guess.length; i++) {
-                if (guess[i] === 'r') {
-                    guess[i] = 1
-                }
+        let colorGuesses = this.get('colorGuesses')
+        let guess = input.split("");
+        colorGuesses.push(guess);
+        this.set('colorGuesses', colorGuesses);
 
-                if (guess[i] === 'o') {
-                    guess[i] = 2
-                }
-                if (guess[i] === 'y') {
-                    guess[i] = 3
-                }
-                if (guess[i] === 'w') {
-                    guess[i] = 4
-                }
-                if (guess[i] === 'b') {
-                    guess[i] = 5
-                }
-                if (guess[i] === 'g') {
-                    guess[i] = 6
-                }
-                if (guess[i] === 't') {
-                    guess[i] = 7
-                }
-                if (guess[i] === 'p') {
-                    guess[i] = 8
-                }
-
+        //setting colors to numbers
+        for (let i = 0; i < guess.length; i++) {
+            if (guess[i] === 'r') {
+                guess[i] = 1
             }
 
-            numberGuesses.push(guess);
-            let guessNumber = this.get('turn');
-            this.save()
+            if (guess[i] === 'o') {
+                guess[i] = 2
+            }
+            if (guess[i] === 'y') {
+                guess[i] = 3
+            }
+            if (guess[i] === 'w') {
+                guess[i] = 4
+            }
+            if (guess[i] === 'b') {
+                guess[i] = 5
+            }
+            if (guess[i] === 'g') {
+                guess[i] = 6
+            }
+            if (guess[i] === 't') {
+                guess[i] = 7
+            }
+            if (guess[i] === 'p') {
+                guess[i] = 8
+            }
+
         }
+
+        let numberGuesses = this.get('numberGuesses')
+        this.get('numberGuesses').push(guess);
+        let guessNumber = this.get('turn');
+        this.save()
     }
 
 });
+
+//frontend sends potential answer
+//backend sends 
 
 
 },{}],3:[function(require,module,exports){
@@ -129,8 +128,8 @@ module.exports = Backbone.View.extend({
         'click #start': 'newGame',
     },
 
-    addGuess: function (){
-        let stringGuess = document.querySelector('#guess').value;
+    addGuess: function () {
+        let stringGuess = document.querySelector('#guess').value.toLowerCase();
         this.model.checkGuess(stringGuess);
     },
 
@@ -138,31 +137,42 @@ module.exports = Backbone.View.extend({
         this.model.reset();
     },
 
-    render: function (){
+    render: function () {
         //mustache
         //get Grace's data and convert to letters
         //convert play data to letter 
         //convert indicators to 'close' and 'correct'
         //display turn number using her indices 
         //display all guesses and indicators in turn order
-        document.querySelector('#guess').value = '';
-        document.querySelector('#gameRows'.value = '');
+        this.el.querySelector('#guess').value = '';
+        this.el.querySelector('#rowDisplay').innerHTML = '';
 
-        let parent = document.querySelector('#gameRows');
+        let parent = this.el.querySelector('#rowDisplay');
         let template = document.querySelector('#game-row');
-        let child = document.createElement('li');
-
-        child.innerHTML = Mustache.render(template.innerHTML, {
-            turnNumber: sd,
-            position0: sd,
-            position1: sd,
-            position2: sd,
-            position3: sd,
-
-        })
 
 
+        for (let i = 0; i < this.model.get('colorGuesses').length; i++) {
+            let guess = this.model.get('colorGuesses')[i];
+            let indicator = this.model.get('indicators')[i];
+
+            let child = document.createElement('div');
+            child.setAttribute('id', 'row');
+            parent.appendChild(child);
+
+            child.innerHTML = Mustache.render(template.innerHTML, {
+                // turnNumber: model.get('colorGuesses.guess[0]'),
+                position0: guess[0],
+                position1: guess[1],
+                position2: guess[2],
+                position3: guess[3],
+
+            })
+
+        }
     }
 
-})
+    })
+
+//make sure check Guess button only functions when 4 letters are input
+//make sure check Guess button doesn't work when empty input box is returned
 },{}]},{},[1]);
