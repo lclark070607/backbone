@@ -28,26 +28,27 @@ Backbone.sync = function (method, model) {
         //     //some code
 
         // } else {
-            let request = new XMLHttpRequest();
-            request.open('POST', 'https://limitless-earth-22097.herokuapp.com/');
+        let request = new XMLHttpRequest();
+        request.open('POST', 'https://limitless-earth-22097.herokuapp.com/');
 
-            request.addEventListener('load', function () {
-                const response = JSON.parse(request.responseText);
-                model.trigger('change');
+        request.addEventListener('load', function () {
+            const response = JSON.parse(request.responseText);
+            model.set('indicators', response.indicators);
+            model.trigger('change');
 
-                //reset the turn
-                let newTurn = model.get('turn') + 1;
-                model.set('turn', newTurn);
-            });
+            //reset the turn
+            let newTurn = model.get('turn') + 1;
+            model.set('turn', newTurn);
+        });
 
-            const body = JSON.stringify({
-                play: model.get('guesses.guess[guessNumber]'),
+        const body = JSON.stringify({
+            play: model.get('numberGuesses.guess[guessNumber]'),
 
-            });
+        });
 
-            request.send(body);
-        }
+        request.send(body);
     }
+}
 
 // }
 
@@ -57,61 +58,66 @@ module.exports = Backbone.Model.extend({
     defaults: {
         turn: 0,
         //an array within an object
-        guesses: {
+        colorGuesses: {
         },
-    },
 
-    reset: function () {
-        this.set('turn', 0);
-        this.save();
-    },
+        numberGuesses: {
+        },
 
-    //POST function, click check guess, We push the current
-    //guess (after splitting string) to the guesses as an array in the guess/
-    //object and then send Grace the current turn's guess only
-    //in an array format.
+        reset: function () {
+            this.set('turn', 0);
+            this.save();
+        },
+
+        //POST function, click check guess, We push the current
+        //guess (after splitting string) to the guesses as an array in the guess/
+        //object and then send Grace the current turn's guess only
+        //in an array format.
 
 
-    checkGuess: function (input) {
-        let guess = input.split("").toLowerCase;
+        checkGuess: function (input) {
+            let guess = input.split("").toLowerCase;
+            colorGuesses.push(guess);
 
-        //setting colors to numbers
-        for (let i = 0; i < guess.length; i++) {
-            if (guess[i] === 'r') {
-                guess[i] = 1
+            //setting colors to numbers
+            for (let i = 0; i < guess.length; i++) {
+                if (guess[i] === 'r') {
+                    guess[i] = 1
+                }
+
+                if (guess[i] === 'o') {
+                    guess[i] = 2
+                }
+                if (guess[i] === 'y') {
+                    guess[i] = 3
+                }
+                if (guess[i] === 'w') {
+                    guess[i] = 4
+                }
+                if (guess[i] === 'b') {
+                    guess[i] = 5
+                }
+                if (guess[i] === 'g') {
+                    guess[i] = 6
+                }
+                if (guess[i] === 't') {
+                    guess[i] = 7
+                }
+                if (guess[i] === 'p') {
+                    guess[i] = 8
+                }
+
             }
 
-            if (guess[i] === 'o') {
-                guess[i] = 2
-            }
-            if (guess[i] === 'y') {
-                guess[i] = 3
-            }
-            if (guess[i] === 'w') {
-                guess[i] = 4
-            }
-            if (guess[i] === 'b') {
-                guess[i] = 5
-            }
-            if (guess[i] === 'g') {
-                guess[i] = 6
-            }
-            if (guess[i] === 't') {
-                guess[i] = 7
-            }
-            if (guess[i] === 'p') {
-                guess[i] = 8
-            }
-
+            numberGuesses.push(guess);
+            let guessNumber = this.get('turn');
+            this.save()
         }
-
-        guesses.push(guess);
-
-        let guessNumber = this.get('turn');
-        this.save()
     }
 
 });
+
+
 },{}],3:[function(require,module,exports){
 module.exports = Backbone.View.extend({
     inititalize: function () {
@@ -139,14 +145,22 @@ module.exports = Backbone.View.extend({
         //convert indicators to 'close' and 'correct'
         //display turn number using her indices 
         //display all guesses and indicators in turn order
+        document.querySelector('#guess').value = '';
+        document.querySelector('#gameRows'.value = '');
 
         let parent = document.querySelector('#gameRows');
         let template = document.querySelector('#game-row');
         let child = document.createElement('li');
 
         child.innerHTML = Mustache.render(template.innerHTML, {
+            turnNumber: sd,
+            position0: sd,
+            position1: sd,
+            position2: sd,
+            position3: sd,
 
         })
+
 
     }
 
