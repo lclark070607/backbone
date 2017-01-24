@@ -1,4 +1,3 @@
-/*we use ../ because we created a folder for scss.  need to go up a directory*/
 /**
  * Foundation for Sites by ZURB
  * Version 6.3.0
@@ -1487,4 +1486,54 @@ main {
         padding-right: 0.9375rem;
         padding-left: 0.9375rem; } }
     #startBtn #placeholder2:last-child:not(:first-child) {
+      float: right; }
+
+#rowDisplay {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto; }
+  #rowDisplay::before, #rowDisplay::after {
+    display: table;
+    content: ' '; }
+  #rowDisplay::after {
+    clear: both; }
+
+#row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  float: left;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem; }
+  @media print, screen and (min-width: 40em) {
+    #row {
+      padding-right: 0.9375rem;
+      padding-left: 0.9375rem; } }
+  #row:last-child:not(:first-child) {
+    float: right; }
+  #row h2 {
+    width: 25%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem; }
+    @media print, screen and (min-width: 40em) {
+      #row h2 {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem; } }
+    #row h2:last-child:not(:first-child) {
+      float: right; }
+  #row #buttons {
+    display: flex;
+    justify-content: center;
+    margin: 10px; }
+  #row h5 {
+    width: 25%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem; }
+    @media print, screen and (min-width: 40em) {
+      #row h5 {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem; } }
+    #row h5:last-child:not(:first-child) {
       float: right; }

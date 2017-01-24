@@ -1,92 +1,76 @@
 <!doctype html>
-<!--Dont forget to run gulp after you set up basic html structure, this
-saves it to the public directory.  Actually you can run gulp watch to keep
-gulp files updated-->
 
 <html>
 
 <head>
     <title>Mastermind</title>
-    <!--Add css file-->
     <link rel="stylesheet" href="style.css">
-    <!--add js file-->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <script src="http://underscorejs.org/underscore.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="http://backbonejs.org/backbone.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script src='app.js'></script>
 
-    <script src="app.js"></script>
     <script type="x-mustache-template" id="game-row">
-
-        
-            <h4>{{ turnNumber }}</h4>
-            <div id="buttons">
-                <button class="color-{{ position0 }}"> {{ position0 }} </button>
-                <button class="color-{{ position1 }}"> {{ position1 }} </button>
-                <button class="color-{{ position2 }}"> {{ position2 }} </button>
-                <button class="color-{{ position3 }}"> {{ position3 }} </button> 
-            </div>
        
-        
-        <h4>{{ pegs }}</h4>    
-        </script>
+               <h4>Turn {{ turnNumber }}</h4> 
+              <div id = "buttons">
+                    <button class="color-{{position0}}">{{ position0 }}</button>
+                    <button class="color-{{position1}}">{{ position1 }}</button>
+                    <button class="color-{{position2}}">{{ position2 }}</button>
+                    <button class="color-{{position3}}">{{ position3 }}</button>
+             </div>
+                     <h5>{{ pegs0 }},{{ pegs1 }},{{ pegs2 }},{{ pegs3 }}</h5>
+           </script>
 </head>
 
 <body>
     <header>
-        <h1>Mastermind</h1>
-        <h2>A game for Morrighan, Braeden, and Owen.</h2>
+        <h1>Mastermind - A Game of Skill</h1>
     </header>
 
     <main>
-
-        <section id="rowDisplay">
-            <ul id="gameRows"></ul>
-        </section>
+        <section id="rowDisplay"></section>
 
         <section id="makeGuess">
             <h2>Make a Guess</h2>
+
         </section>
 
         <section id="checkRow">
             <input type="text" id="guess" placeholder="type four colors">
             <button id="check">Check Guess</button>
+
         </section>
 
         <section id="colorDisplay">
             <div id="colors1"></div>
             <div id="colors">
-                <section id='firstRow'>
-                    <button class='color-r'>R</button>
-                    <button class='color-o'>O</button>
-                    <button class='color-y'>Y</button>
-                    <button class='color-w'>W</button>
-                </section>
+                <section id="firstRow">
+                    <button class='color-r'>r</button>
+                    <button class='color-o'>o</button>
+                    <button class='color-y'>y</button>
+                    <button class='color-w'>w</button>
 
+                </section>
                 <section id='secondRow'>
-                    <button class='color-b'>B</button>
-                    <button class='color-g'>G</button>
-                    <button class='color-t'>T</button>
-                    <button class='color-p'>P</button>
+                    <button class='color-b'>b</button>
+                    <button class='color-g'>g</button>
+                    <button class='color-t'>t</button>
+                    <button class='color-p'>p</button>
                 </section>
             </div>
             <div id="colors2"></div>
         </section>
-
-        <div id=startBtn>
+        <div id='startBtn'>
             <div id='placeholder1'></div>
             <button id="start">Start New Game</button>
             <div id='placeholder2'></div>
         </div>
-        
     </main>
 
-
-
-
-
-
-
 </body>
+
 
 </html>

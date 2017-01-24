@@ -1,156 +1,181 @@
-/*we use ../ because we created a folder for scss.  need to go up a directory*/
 @import '../node_modules/foundation-sites/scss/foundation';
 @include foundation-global-styles;
 @include foundation-grid;
 
 body{
-    background-color: mediumvioletred;
-    
+   background-color: mediumvioletred;
+   
 }
 header{
-    @include grid-row();
-        h1{
-         @include grid-column(12);
-         text-align: center;
-    }
-    h2 {
+   @include grid-row();
+       h1{
         @include grid-column(12);
         text-align: center;
-        margin-top: 0;
-    }
+   }
+   h2 {
+       @include grid-column(12);
+       text-align: center;
+       margin-top: 0;
+   }
 }
 main{
 
-    width: 750px;
-    height: 423px;
-    margin: 80px auto;
-    background: #FFFFFF;
-    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
-    border-radius: 6px;
-    
-    #makeGuess{
-        @include grid-row();
-        h2{
-            @include grid-column(12);
-            
-            text-align: center;
-        }
-    }
-    
-    
-    #checkRow{
-        @include grid-row();
-        #guess{
-            @include grid-column(5);
-            display:block;
-            padding: 15px;
+   width: 750px;
+   height: 423px;
+   margin: 80px auto;
+   background: #FFFFFF ;
+   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+   border-radius: 6px;
+   
+   #makeGuess{
+       @include grid-row();
+       h2{
+           @include grid-column(12);
            
-        }
-        #check{
-            @include grid-column(5);
-             padding: 15px;
-             border: 2px solid black;
-             background-color: violet;  
-             display: block;
-             margin-top: 15px;
-    
-          
-        }
-    }
+           text-align: center;
+       }
+   }
+   
+   
+   #checkRow{
+       @include grid-row();
+       #guess{
+           @include grid-column(5);
+           display:block;
+           padding: 15px;
+         
+       }
+       #check{
+           @include grid-column(5);
+            padding: 15px;
+            border: 2px solid black;
+            background-color: violet;  
+            display: block;
+            margin-top: 15px;
+   
+         
+       }
+   }
 #colorDisplay{
-    @include grid-row();
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-around;
+   @include grid-row();
+   margin-top: 30px;
+   display: flex;
+   justify-content: space-around;
 }
 
 #colors1{
-    @include grid-column(4);
+   @include grid-column(4);
 }
- #colors{
-        @include grid-column(4);
-        border: 2px solid black;
-        
-    }
+#colors{
+       @include grid-column(4);
+       border: 2px solid black;
+       
+   }
 
 #colors2{
-    @include grid-column(4);
+   @include grid-column(4);
 }
-        
+       
 #firstRow, #secondRow{
-        display: flex;
-        justify-content: center;
-        margin: 10px;
-                }
-                    
+       display: flex;
+       justify-content: center;
+       margin: 10px;
+               }
+                   
 .color-r, .color-o, .color-y, .color-w, .color-b, .color-g, .color-t, .color-p{
 // button code below from codeitdown.com
-        display:block;
-        width:50px;
-        height:50px;
-        line-height:50px;
-        border: 2px solid #f5f5f5;
-        border-radius: 50%;
-        // color: black;
-        text-align:center;
-        text-decoration:none;
-        background: #464646;
-        box-shadow: 0 0 3px gray;
-        font-size:20px;
-        font-weight:bold;
-        }
-            button:hover {
-            background: #262626;
-            color: white;
-                }
-                     .color-r{
-                        background: red;
-                    } 
-                    .color-o{
-                        background: orange;
-                    }
-                    .color-y{
-                        background: yellow;
-                    }
-                    .color-w{
-                        background:white;
-                    }
-                    .color-b{
-                        background: blue;
-                    } 
-                    .color-g{
-                        background: green;
-                    }
-                    .color-t{
-                        background: teal;
-                    }
-                    .color-p{
-                        background: mediumpurple;
-                    }
-    }
+       display:block;
+       width:50px;
+       height:50px;
+       line-height:50px;
+       border: 2px solid #f5f5f5 ;
+       border-radius: 50%;
+       // color: black;
+       text-align:center;
+       text-decoration:none;
+       background: #464646 ;
+       box-shadow: 0 0 3px gray;
+       font-size:20px;
+       font-weight:bold;
+       }
+           button:hover {
+           background: #262626 ;
+           color: white;
+               }
+                    .color-r{
+                       background: red;
+                   }
+                   .color-o{
+                       background: orange;
+                   }
+                   .color-y{
+                       background: yellow;
+                   }
+                   .color-w{
+                       background:white;
+                   }
+                   .color-b{
+                       background: blue;
+                   }
+                   .color-g{
+                       background: green;
+                   }
+                   .color-t{
+                       background: teal;
+                   }
+                   .color-p{
+                       background: mediumpurple;
+                   }
+   }
 
 #startBtn {
+   @include grid-row();
+   display: flex;
+   justify-content: space-around;
+   
+
+   #placeholder1 {
+       @include grid-column(4);
+   }
+
+   #start{
+       @include grid-column(4);
+       margin-top: 20px;
+       padding: 15px;
+       border: 2px solid black;
+       background-color: violet;        
+   }
+
+   #placeholder2 {
+       @include grid-column(4);
+   }
+}
+
+#rowDisplay{
     @include grid-row();
-    display: flex;
+}
+
+#row{
+    display:flex;
     justify-content: space-around;
+    @include grid-column(12);
+
+    h2{
+        @include grid-column(3);
+    }
+
+    #buttons{
     
-
-    #placeholder1 {
-        @include grid-column(4);
+    display: flex;
+       justify-content: center;
+       margin: 10px;
     }
 
-    #start{
-        @include grid-column(4);
-        margin-top: 20px;
-        padding: 15px;
-        border: 2px solid black;
-        background-color: violet;        
+    h5{
+        @include grid-column(3);
     }
 
-    #placeholder2 {
-        @include grid-column(4);
-    }
-}       
-    
+   
+} 
     
 
